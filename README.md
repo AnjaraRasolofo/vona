@@ -1,154 +1,219 @@
-# Node API Template (Express + Prisma + MySQL + JWT)
+# VONA — Node.js Mini Framework
 
-API backend prête à l’emploi construite avec **Node.js**, **Express**, **Prisma ORM**, et **MySQL**, incluant une authentification JWT et une architecture modulaire inspirée de Symfony.
+**Vona** est un mini framework backend construit avec Node.js.
+Il est inspiré de Symfony et NestJS, et permet de développer rapidement des API structurées.
 
 ---
 
-## Stack technique
+# Stack technique
 
-* Node.js (ES Modules)
+* Node.js
 * Express.js
-* Prisma ORM
+* TypeORM
 * MySQL
-* JWT (authentification)
-* Docker (optionnel)
+* jsonwebtoken
 
 ---
 
-## Structure du projet
+# Objectif
 
-```
-.
-├── prisma/
-│   └── schema.prisma
-├── src/
-│   ├── config/
-│   ├── controllers/
-│   ├── middlewares/
-│   ├── routes/
-│   ├── services/
-│   └── utils/
-├── server.js
-├── .env
-├── package.json
-└── docker-compose.yml
+Ce framework permet de :
+
+* Structurer une API propre (Controller / Service / Repository)
+* Gérer une base de données MySQL avec TypeORM
+* Créer des entités et migrations facilement
+* Générer du code automatiquement (CLI)
+* Gérer l’authentification JWT
+* Accélérer le développement backend
+
+---
+
+# Architecture
+
+```text
+src/
+  controllers/
+  services/
+  entities/
+  middlewares/
+  routes/
+  config/
+
+scripts/
+  cli.js
+  commands/
 ```
 
 ---
 
-## Installation
+# Fonctionnalités
+
+## Auth
+
+* Register / Login
+* JWT token
+* Middleware protect
+
+---
+
+## ORM
+
+* TypeORM intégré
+* Entities
+* Relations
+* Migrations
+
+---
+
+## CLI (Command Line Tool)
+
+Le framework fournit un CLI similaire à Symfony :
 
 ```bash
-git clone <repo-url>
-cd node-api-template
+npm run cli
+```
+
+---
+
+# Commandes disponibles
+
+## DATABASE
+
+```bash
+npm run cli db:create   # créer la base
+npm run cli db:drop     # supprimer la base
+npm run cli db:reset    # reset complet
+```
+
+---
+
+## ENTITIES
+
+```bash
+npm run cli make:entity User
+```
+
+---
+
+## CONTROLLERS
+
+```bash
+npm run cli make:controller User
+```
+
+---
+
+## SERVICES
+
+```bash
+npm run cli make:service Auth
+```
+
+---
+
+## MIGRATIONS
+
+```bash
+npm run cli make:migration Migration123
+npm run cli migration:run
+```
+
+---
+
+# AUTH FLOW
+
+```text
+User → Register → Hash password → DB
+User → Login → JWT Token → Protected routes
+```
+
+---
+
+# EXAMPLE ENDPOINTS
+
+```http
+POST   /api/register
+POST   /api/login
+GET    /api/profile
+```
+
+---
+
+# INSTALLATION
+
+```bash
+npx degit https://github.com/AnjaraRasolofo/vona.git project_name
+cd project_name
 npm install
 ```
 
 ---
 
-## Configuration
+# CONFIGURATION (.env)
 
-Créer un fichier `.env` à la racine :
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=your_db
+DB_PORT=3306
 
-```
-DATABASE_URL="mysql://USER:PASSWORD@localhost:3306/DB_NAME"
-JWT_SECRET=your_secret_key
+JWT_SECRET=your_secret
 PORT=3000
 ```
 
 ---
 
-## Base de données (Prisma)
-
-### Initialiser Prisma
-
-```bash
-npx prisma generate
-```
-
-### Appliquer les migrations
-
-```bash
-npx prisma migrate dev --name init
-```
-
-### Interface graphique
-
-```bash
-npx prisma studio
-```
-
----
-
-## Lancer le projet
-
-### Mode développement
+# RUN PROJECT
 
 ```bash
 npm run dev
 ```
 
-### Mode production
+---
+
+# CLI USAGE EXAMPLE
 
 ```bash
-npm start
+npm run cli db:create
+npm run cli make:entity Product
+npm run cli make:controller Product
+npm run cli make:migration Migration123456789
+npm run cli migration:run
+npm run cli make:service Product
 ```
 
 ---
 
-## Authentification
+# CONCEPT
 
-### Routes disponibles
+Ce framework est basé sur :
 
-* `POST /api/auth/register`
-* `POST /api/auth/login`
-
-### Exemple requête login
-
-```json
-{
-  "email": "test@mail.com",
-  "password": "123456"
-}
-```
+* séparation des responsabilités (MVC + Service Layer)
+* architecture scalable
+* automatisation du développement
+* productivité maximale backend
 
 ---
 
-## Docker (optionnel)
+# Pourquoi "VONA" ?
 
-### Lancer les services
-
-```bash
-docker-compose up -d
-```
+“Vona” signifie **Node en malgache**, symbolisant un framework local inspiré des standards modernes.
 
 ---
 
-## Bonnes pratiques
+# FUTURE FEATURES
 
-* Ne jamais commit le fichier `.env`
-* Versionner `prisma/schema.prisma`
-* Versionner les migrations Prisma (recommandé en équipe)
-* Utiliser des variables d’environnement
-
----
-
-## Améliorations possibles
-
-* Refresh Token (JWT)
-* Gestion des rôles (RBAC)
-* Validation des données (Joi / Zod)
-* Documentation API (Swagger)
-* Tests (Jest)
+* Module system (NestJS-like)
+* Dependency Injection
+* Auto route loader
+* Seeder system
+* Swagger integration
 
 ---
 
-## Auteur
+# OBJECTIF
 
-Projet template créé par Anjarasoa Solofondraibe pour accélérer le développement d’API Node.js.
+Créer un framework Node.js simple, puissant et productif pour développement rapide d’API professionnelles.
 
 ---
-
-## Licence
-
-MIT
